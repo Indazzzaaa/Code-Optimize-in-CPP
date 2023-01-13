@@ -4,6 +4,9 @@
         "vector": "cpp",
         "iostream": "cpp",
         "ostream": "cpp",
-        "new": "cpp"
+        "new": "cpp",
+        "bitset": "cpp",
+        "cstring": "cpp",
+        "*.tcc": "cpp"
     }
 }
