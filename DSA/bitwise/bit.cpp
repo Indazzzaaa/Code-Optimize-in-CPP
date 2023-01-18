@@ -1,6 +1,7 @@
 #include <iostream>
 #include <stdlib.h>
 #include <bitset>
+#include <limits.h>
 using namespace std;
 
 void printBit();
@@ -10,7 +11,12 @@ int main(int argc, char const *argv[])
 {
     system("cls");
     // checkKthBit(4, 0);
-    printBit();
+    // printBit();
+    int a = INT_MAX;
+    cout << bitset<32>(a) << endl;
+    cout << bitset<32>(a << 1) << endl;
+    cout << bitset<32>(a) << endl;
+
     cin.get();
 
     return 0;
