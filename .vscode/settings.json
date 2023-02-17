@@ -67,7 +67,8 @@
         "span": "cpp",
         "xlocmon": "cpp",
         "xloctime": "cpp",
-        "queue": "cpp"
+        "queue": "cpp",
+        "xtree": "cpp"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }
