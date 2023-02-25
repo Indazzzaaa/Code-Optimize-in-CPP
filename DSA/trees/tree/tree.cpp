@@ -708,6 +708,8 @@ struct tree
         }
     }
 
+    
+
 private:
     bool findPath(node *root, int n, vector<int> &path)
     {

@@ -68,7 +68,9 @@
         "xlocmon": "cpp",
         "xloctime": "cpp",
         "queue": "cpp",
-        "xtree": "cpp"
+        "xtree": "cpp",
+        "map": "cpp",
+        "set": "cpp"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }
