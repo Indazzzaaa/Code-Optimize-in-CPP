@@ -2,8 +2,9 @@
 #include <vector>
 using namespace std;
 
-// returned values is lowest discovery time found
-void dfs(vector<vector<int>> &graph, vector<bool> &visited, vector<int> &articulationPoints, vector<int> &dis, vector<int> &lowDisReach, int &disCount, int src = 0, int parent = -1)
+#define edge(x, y) cout << "( " << x << "," << y << " )" << endl
+
+void dfs(vector<vector<int>> &graph, vector<bool> &visited, vector<pair<int, int>> &bridgeEdge, vector<int> &dis, vector<int> &lowDisReach, int &disCount, int src = 0, int parent = -1)
 {
 
     visited[src] = true;
@@ -22,11 +23,12 @@ void dfs(vector<vector<int>> &graph, vector<bool> &visited, vector<int> &articul
         if (graph[src][i] != 0 && visited[i] == false)
         {
             count++;
-            dfs(graph, visited, articulationPoints, dis, lowDisReach, disCount, i, src);
+            dfs(graph, visited, bridgeEdge, dis, lowDisReach, disCount, i, src);
             // we are checking for root in another way
-            if (dis[src] <= lowDisReach[i] && parent != -1)
+            // * this is the change from articulation point here we are only checking for greater not  greater equal
+            if (dis[src] < lowDisReach[i] && parent != -1)
             {
-                articulationPoints.push_back(src);
+                bridgeEdge.push_back({src, i});
             }
         }
         // there should be edge but we won't consider the parent one
@@ -35,34 +37,34 @@ void dfs(vector<vector<int>> &graph, vector<bool> &visited, vector<int> &articul
         {
             lowDisReach[src] = min(lowDisReach[src], lowDisReach[i]);
         }
-
-        // for checking the root .
-        if (count > 1 && parent == -1)
-        {
-            articulationPoints.push_back(src);
-        }
     }
 
     // Time complexity : o(V+E)
 }
 
-void articulationPointTest()
+void bridgesTest()
 {
-    // vector<vector<int>> graph1 = {{0, 1, 0, 1, 0, 0, 0}, {1, 0, 1, 0, 1, 0, 0}, {0, 1, 0, 1, 0, 0, 0}, {1, 0, 1, 0, 0, 0, 0}, {0, 1, 0, 0, 0, 1, 1}, {0, 0, 0, 0, 1, 0, 1}, {0, 0, 0, 0, 1, 1, 0}};
-    vector<vector<int>> graph2 = {
+    vector<vector<int>> graph1 = {
         {0, 1, 1, 0, 0},
-        {1, 0, 1, 0, 0},
-        {1, 1, 0, 1, 0},
-        {0, 0, 1, 0, 1},
-        {0, 0, 0, 1, 0},
-    };
-    vector<vector<int>> graph = {{0, 1, 1}, {1, 0, 1}, {1, 1, 0}};
-    vector<bool> visited(graph.size(), false);
-    vector<int> articulationPoints;
+        {1, 0, 1, 1, 0},
+        {1, 1, 0, 0, 0},
+        {0, 1, 0, 0, 1},
+        {0, 0, 0, 1, 0}};
+
+    vector<vector<int>> graph = {
+        {0, 1, 1, 0, 0, 0},
+        {1, 0, 1, 0, 0, 0},
+        {1, 0, 0, 1, 0, 0},
+        {0, 0, 1, 0, 1, 1},
+        {0, 0, 0, 1, 0, 1},
+        {0, 0, 0, 1, 1, 0}};
+    vector<bool>
+        visited(graph.size(), false);
+    vector<pair<int, int>> bridgeEdge;
     vector<int> dis(graph.size());
     vector<int> lowDisReach(graph.size());
     int disCount = 0;
-    dfs(graph, visited, articulationPoints, dis, lowDisReach, disCount);
+    dfs(graph, visited, bridgeEdge, dis, lowDisReach, disCount);
     // debugging
     cout << "v: ";
     for (int i = 0; i < graph.size(); i++)
@@ -84,15 +86,16 @@ void articulationPointTest()
     }
     cout << endl;
 
-    cout << "AP: ";
-    for (auto point : articulationPoints)
+    cout << "Edges:  (src,dest)" << endl;
+    for (auto point : bridgeEdge)
     {
-        cout << point << "\t";
+        edge(point.first, point.second);
     }
     cout << endl;
 }
 
-int main()
+int main(int argc, char const *argv[])
 {
-    articulationPointTest();
+    bridgesTest();
+    return 0;
 }
