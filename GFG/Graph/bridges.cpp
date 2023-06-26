@@ -11,18 +11,13 @@ void dfs(vector<vector<int>> &graph, vector<bool> &visited, vector<pair<int, int
     int colSize = graph[src].size();
     disCount++;
     dis[src] = disCount;
-    lowDisReach[src] = disCount; // it will help on comparison and also handle the case colSize == 1 || parent == -1
-    int count = 0;               // This is to count how many times our graph went in graph[src][i] != 0 && visited[i] == false case
-    // we will also construct the discovery time and smallest discovery time reachable
-    // ? how will we find the lowest discovery time reachable from vertex, we'll return the vertex.
-    // ? what are the candidates for that 1. parent ==-1, 2. it's own discovery time
+    lowDisReach[src] = disCount;
 
     for (int i = 0; i < colSize; i++)
     {
 
         if (graph[src][i] != 0 && visited[i] == false)
         {
-            count++;
             dfs(graph, visited, bridgeEdge, dis, lowDisReach, disCount, i, src);
             // we are checking for root in another way
             // * this is the change from articulation point here we are only checking for greater not  greater equal
