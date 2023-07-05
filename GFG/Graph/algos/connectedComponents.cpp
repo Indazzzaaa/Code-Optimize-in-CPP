@@ -1,3 +1,4 @@
+// kosarajus algo
 #include <iostream>
 #include <stack>
 #include <vector>
@@ -42,18 +43,12 @@ void dfs(vector<vector<int>> &graph, stack<int> &st)
     }
 }
 
-void connectedComponent_KosaRajus(vector<vector<int>> &graph)
+int connectedComponent_KosaRajus(vector<vector<int>> &graph)
 {
     // step1. find the vertices in order of there finish time
     stack<int> finishTime;
     dfs(graph, finishTime);
-    while (!finishTime.empty())
-    {
-        cout << finishTime.top() << endl;
-        finishTime.pop();
-    }
-    // step2. revers all the edges in the graph
-    //  m1 create the all new graph
+
     vector<vector<int>> reverseEdgesGraph(graph.size());
     for (int i = 0; i < graph.size(); i++)
     {
@@ -64,18 +59,24 @@ void connectedComponent_KosaRajus(vector<vector<int>> &graph)
     }
 
     // step3. do dfs again but now on the stack we got and print all the connected components
-    cout << endl
-         << "Printing the connected components" << endl;
+
     vector<bool> visited(graph.size(), false);
-    for (int i = 0; i < graph.size(); i++)
+    int count = 0;
+
+    //     * now do traversal on the basis of finish time of the vertex
+    while (!finishTime.empty())
     {
+        int i = finishTime.top();
+        finishTime.pop();
         if (visited[i] == false)
         {
 
             dfsTraversal_normal(reverseEdgesGraph, visited, i);
-            cout << endl;
+            count++;
         }
     }
+
+    return count;
 }
 
 int main(int argc, char const *argv[])
