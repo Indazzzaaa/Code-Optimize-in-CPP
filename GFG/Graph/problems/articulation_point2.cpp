@@ -5,8 +5,6 @@
 
 using namespace std;
 
-// ! there is something new to learn while passing parent as &parent, Just rember at every call stack it just refer to memory location
-// ! and changing the memory it points to will change it's value at every call stack . (Very powerfull to see full result go to debug mode and see how the parent value reset to last point varialbe after call ends)
 void dfs(int node, int &parent, int &timer, vector<int> &low, vector<int> &disc, vector<bool> &vis, vector<int> adj[], set<int> &ans)
 
 {
@@ -65,6 +63,20 @@ void dfs(int node, int &parent, int &timer, vector<int> &low, vector<int> &disc,
     }
 }
 
+void log(vector<int> &dis, vector<int> &low, vector<int> &ap)
+{
+
+    cout << "V\tD\tL" << endl;
+    for (int i = 0; i < dis.size(); i++)
+    {
+        cout << i << "\t" << dis[i] << "\t" << low[i] << endl;
+    }
+
+    cout << "Articulation points are ! " << endl;
+    for (auto points : ap)
+        cout << points << " ";
+}
+
 vector<int> articulationPoints(int V, vector<int> adj[])
 {
 
@@ -110,6 +122,8 @@ vector<int> articulationPoints(int V, vector<int> adj[])
         res.push_back(ele);
     }
 
+    // log(disc, low, res);
+
     return res;
 }
 
@@ -124,22 +138,64 @@ int main(int argc, char const *argv[])
         {4, 6},
         {4, 5}};
 
-    vector<int> adj2[] = {
-        {1},
-        {4},
-        {3, 4},
-        {2, 4},
-        {1, 2, 3}};
-
     vector<int> adj[] = {
-        {1, 2},
+        {10},
+        {},
+        {11},
+        {8, 12},
+        {18, 24},
+        {18},
+        {15, 23},
+        {14},
+        {3, 9},
+        {8},
         {0},
-        {0}};
-    int v = 3;
-    auto res = articulationPoints(v, adj);
-    cout << "Printing the result : ";
-    for (auto i : res)
-        cout << i << " ";
+        {2, 16},
+        {3},
+        {23},
+        {7},
+        {6},
+        {11},
+        {},
+        {4, 5, 19},
+        {18, 22},
+        {},
+        {},
+        {19},
+        {6, 13},
+        {4},
+        {},
+    };
+    int v = 26;
+    articulationPoints(v, adj);
 
     return 0;
 }
+
+/*
+does not worked for
+26 15
+0 10
+2 11
+3 8
+3 12
+4 18
+4 24
+5 18
+6 15
+6 23
+7 14
+8 9
+11 16
+13 23
+18 19
+19 22
+nodes are : 0 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 18 19 22 23 24
+
+
+our output: 0 8 11 18 19 23
+correct output: 3 4 6 8 11 18 19 23
+
+
+
+ */

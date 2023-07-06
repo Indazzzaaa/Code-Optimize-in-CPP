@@ -1,16 +1,21 @@
 #include <iostream>
 #include <vector>
 #include <queue>
+#include <set>
 
 using namespace std;
 
+// ! there is something new to learn while passing parent as &parent, Just rember at every call stack it just refer to memory location
+// ! and changing the memory it points to will change it's value at every call stack . (Very powerfull to see full result go to debug mode and see how the parent value reset to last point varialbe after call ends)
 void dfs(int node, int &parent, int &timer, vector<int> &low, vector<int> &disc, vector<bool> &vis, vector<int> adj[], set<int> &ans)
 
 {
 
     vis[node] = true;
 
+    // * we took the timer to start from 0 instead of 1
     low[node] = disc[node] = timer++;
+    // cout << "For vertex : " << node << " timer is : " << disc[node] << endl;
 
     int Child = 0;
 
@@ -119,15 +124,22 @@ int main(int argc, char const *argv[])
         {4, 6},
         {4, 5}};
 
-    vector<int> adj[] = {
+    vector<int> adj2[] = {
         {1},
         {4},
         {3, 4},
         {2, 4},
         {1, 2, 3}};
-    int v = 5;
-    articulationPoints(v, adj);
+
+    vector<int> adj[] = {
+        {1, 2},
+        {0},
+        {0}};
+    int v = 3;
+    auto res = articulationPoints(v, adj);
+    cout << "Printing the result : ";
+    for (auto i : res)
+        cout << i << " ";
 
     return 0;
 }
-
