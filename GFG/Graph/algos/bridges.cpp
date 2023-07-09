@@ -1,3 +1,5 @@
+
+// !this algo detect wheter given edge is bridge or not but we can modify it for finding all the bridges in the graph
 #include <iostream>
 #include <vector>
 #include <set>
