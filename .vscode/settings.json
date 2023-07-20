@@ -70,7 +70,13 @@
         "queue": "cpp",
         "xtree": "cpp",
         "map": "cpp",
-        "set": "cpp"
+        "set": "cpp",
+        "filesystem": "cpp",
+        "locale": "cpp",
+        "optional": "cpp",
+        "thread": "cpp",
+        "chrono": "cpp",
+        "codecvt": "cpp"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }
